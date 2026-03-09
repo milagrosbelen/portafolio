@@ -12,6 +12,10 @@ const showcaseProject = {
   role: 'Full Stack Developer',
   demo: 'https://training-log-drab.vercel.app/',
   github: '#',
+  deployment: {
+    frontend: { stack: 'React', platform: 'Vercel' },
+    backend: { stack: 'Laravel, PHP', platform: 'Render' },
+  },
 }
 
 const ProjectShowcase = ({ project }) => {
@@ -64,8 +68,31 @@ const ProjectShowcase = ({ project }) => {
             {project.description}
           </p>
 
-          {/* Botones - mobile: 6º, desktop: 6º */}
-          <div className="flex flex-wrap gap-4 pt-2 order-6 md:order-6">
+          {/* Deployment - mobile: 6º, desktop: 6º */}
+          {project.deployment && (
+            <div className="flex flex-col gap-3 order-6 md:order-6">
+              <span className="text-sm font-semibold text-accent-300 uppercase tracking-wider">
+                Deployment
+              </span>
+              <div className="flex flex-wrap gap-2">
+                <span
+                  className="px-4 py-2 bg-primary-500/15 text-primary-300 rounded-lg text-sm font-medium border border-primary-400/20"
+                  title="Frontend: React desplegado en Vercel"
+                >
+                  <span className="font-medium text-gray-300">Frontend:</span> {project.deployment.frontend.stack} → {project.deployment.frontend.platform}
+                </span>
+                <span
+                  className="px-4 py-2 bg-primary-500/15 text-primary-300 rounded-lg text-sm font-medium border border-primary-400/20"
+                  title="Backend: Laravel y PHP desplegados en Render"
+                >
+                  <span className="font-medium text-gray-300">Backend:</span> {project.deployment.backend.stack} → {project.deployment.backend.platform}
+                </span>
+              </div>
+            </div>
+          )}
+
+          {/* Botones - mobile: 7º, desktop: 7º */}
+          <div className="flex flex-wrap gap-4 pt-2 order-7 md:order-7">
             <a
               href={project.demo}
               target="_blank"
