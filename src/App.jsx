@@ -1,4 +1,5 @@
 import React from 'react'
+import PageBackground from './components/PageBackground'
 import Header from './components/Header'
 import ScrollToTop from './components/ScrollToTop'
 import Hero from './components/Hero'
@@ -11,19 +12,23 @@ import Footer from './components/Footer'
 
 function App() {
   return (
-    <div className="min-h-screen bg-dark-950">
-      <Header />
-      <ScrollToTop />
-      <Hero />
-      <About />
-      <Skills />
-      <Experience />
-      <Projects />
-      <Contact />
-      <Footer />
-    </div>
+    <>
+      <PageBackground />
+      <div className="relative min-h-screen">
+        <Header />
+        <ScrollToTop />
+        <main>
+          <Hero />
+          <About />
+          <Skills />
+          <Experience />
+          <Projects />
+          <Contact />
+        </main>
+        <Footer />
+      </div>
+    </>
   )
 }
 
 export default App
-

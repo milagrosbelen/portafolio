@@ -4,9 +4,8 @@ import { scrollToSection } from '../utils/scrollToSection'
 
 const NAV_ITEMS = [
   { name: 'Inicio', href: '#hero' },
-  { name: 'Sobre mí', href: '#about' },
-  { name: 'Habilidades', href: '#skills' },
-  { name: 'Experiencia', href: '#experience' },
+  { name: 'Perfil', href: '#about' },
+  { name: 'Stack', href: '#skills' },
   { name: 'Proyectos', href: '#projects' },
   { name: 'Contacto', href: '#contact' },
 ]
@@ -45,7 +44,7 @@ const Header = () => {
             MB
           </a>
 
-          <ul className="hidden md:flex items-center gap-8">
+          <ul className="hidden md:flex items-center gap-6">
             {NAV_ITEMS.map((item) => (
               <li key={item.name}>
                 <a
@@ -59,6 +58,14 @@ const Header = () => {
               </li>
             ))}
           </ul>
+
+          <a
+            href="#contact"
+            onClick={(e) => handleNavClick(e, '#contact')}
+            className="hidden md:inline-flex px-5 py-2 rounded-lg bg-gradient-to-r from-primary-500 to-accent-500 text-white text-sm font-medium hover:scale-105 transition-transform shadow-lg shadow-primary-500/30"
+          >
+            Hablemos
+          </a>
 
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}

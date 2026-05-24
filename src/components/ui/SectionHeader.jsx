@@ -4,19 +4,22 @@ const SectionHeader = ({
   label,
   title,
   description,
-  titleClassName = 'mb-4',
+  titleClassName = 'mb-2',
   labelClassName = 'text-primary-300',
   className = '',
+  compact = false,
 }) => (
-  <div className={`text-center mb-16 ${className}`}>
-    <div className="inline-block mb-4">
-      <span className={`${labelClassName} text-sm font-medium tracking-wider uppercase`}>
-        {label}
-      </span>
-    </div>
-    <h2 className={`text-4xl md:text-5xl font-bold text-white ${titleClassName}`}>{title}</h2>
+  <div className={`text-center ${compact ? 'mb-8' : 'mb-10'} ${className}`}>
+    <span className={`${labelClassName} text-xs font-semibold tracking-widest uppercase`}>
+      {label}
+    </span>
+    <h2
+      className={`font-bold text-white mt-2 ${compact ? 'text-2xl md:text-3xl' : 'text-3xl md:text-4xl'} ${titleClassName}`}
+    >
+      {title}
+    </h2>
     {description && (
-      <p className="text-gray-400 text-lg max-w-2xl mx-auto">{description}</p>
+      <p className="text-gray-400 text-sm md:text-base max-w-xl mx-auto mt-2">{description}</p>
     )}
   </div>
 )
