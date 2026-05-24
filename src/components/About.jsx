@@ -1,45 +1,42 @@
 import React from 'react'
 import SectionHeader from './ui/SectionHeader'
+import BentoCard from './ui/BentoCard'
 import { SERVICES } from '../data/portfolio'
 import { scrollToSection } from '../utils/scrollToSection'
 
 const About = () => (
   <section id="about" className="section-compact relative">
-    <div className="container mx-auto px-6 max-w-5xl">
+    <div className="container mx-auto px-5 sm:px-6 max-w-5xl">
       <SectionHeader
         compact
         label="Perfil"
-        title="Idea → deploy, con resultados"
-        description="2+ años construyendo productos reales. No solo UI: entrego sistemas completos."
+        title="Idea → deploy"
+        description="Productos reales, no solo maquetas."
       />
 
-      <div className="grid sm:grid-cols-3 gap-3 mb-8">
+      <div className="grid sm:grid-cols-3 gap-4 mb-6">
         {SERVICES.map((s) => (
-          <div
-            key={s.id}
-            className="glass-glow rounded-xl p-4 text-center hover:border-primary-400/25 transition-colors"
-          >
-            <span className="text-2xl">{s.icon}</span>
-            <p className="text-sm font-bold text-white mt-2">{s.title}</p>
-            <p className="text-xs text-gray-500 mt-0.5">{s.line}</p>
-          </div>
+          <BentoCard key={s.id} className="!p-5 text-center">
+            <span className="text-3xl block mb-3">{s.icon}</span>
+            <p className="text-base font-bold text-white">{s.title}</p>
+            <p className="text-xs text-gray-500 mt-1.5 leading-relaxed">{s.line}</p>
+          </BentoCard>
         ))}
       </div>
 
-      <div className="glass-glow rounded-2xl p-5 md:p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <p className="text-gray-400 text-sm md:text-base leading-relaxed max-w-2xl">
-          <strong className="text-white">Full Stack</strong> en Instituto Cervantes. Experiencia en{' '}
-          <strong className="text-white">Linkiame</strong>, clientes con sistema en producción y deploy en
-          Vercel, Forge y Neon.
+      <BentoCard className="!p-6 md:!p-7 flex flex-col md:flex-row md:items-center gap-6">
+        <p className="text-gray-400 text-sm md:text-base leading-relaxed flex-1">
+          <strong className="text-white">Full Stack</strong> · Instituto Cervantes ·{' '}
+          <strong className="text-white">Linkiame</strong> · deploy en Vercel, Laravel Forge, Render y Neon.
         </p>
         <button
           type="button"
           onClick={() => scrollToSection('#contact')}
-          className="flex-shrink-0 px-5 py-2.5 rounded-xl bg-primary-500/20 text-primary-300 text-sm font-semibold border border-primary-400/30 hover:bg-primary-500/30 transition-all whitespace-nowrap"
+          className="btn-primary !w-full md:!w-auto flex-shrink-0"
         >
-          Contactar →
+          Contactar
         </button>
-      </div>
+      </BentoCard>
     </div>
   </section>
 )
