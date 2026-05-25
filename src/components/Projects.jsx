@@ -19,9 +19,11 @@ const projects = [
     Mockup: TallerDbMockup,
     gallery: [
       '/projects/tallerdb/dashboard.png',
+      '/projects/tallerdb/dashboard-2.png',
       '/projects/tallerdb/presupuesto.png',
       '/projects/tallerdb/historial.png',
     ],
+    galleryLabels: ['Dashboard', 'Métricas', 'Presupuesto', 'Historial'],
     demo: 'https://taller-app-fawn.vercel.app/',
     deployment: [
       { label: 'Frontend', value: 'Vercel' },
@@ -60,6 +62,7 @@ const projects = [
     tech: ['React', 'C#', 'SQL Server'],
     Mockup: SpotMockup,
     gallery: ['/projects/spot/dashboard.png', '/projects/spot/promos.png'],
+    galleryLabels: ['Dashboard', 'Promos'],
     demo: '#',
   },
 ]

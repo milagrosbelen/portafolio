@@ -1,11 +1,10 @@
 ﻿import React from 'react'
 
-const PhoneFrame = ({ children, className = '' }) => (
+const PhoneFrame = ({ children, className = '', aspectRatio = '9 / 19.5' }) => (
   <div
     className={`relative mx-auto w-[240px] ${className}`}
     style={{ perspective: '1200px' }}
   >
-    {/* Sombra 3D en el suelo */}
     <div className="absolute -bottom-4 left-1/2 h-8 w-[70%] -translate-x-1/2 rounded-[100%] bg-primary-500/20 blur-2xl" />
 
     <div
@@ -18,15 +17,14 @@ const PhoneFrame = ({ children, className = '' }) => (
           '0 25px 50px -12px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.08), inset 0 1px 0 rgba(255,255,255,0.15)',
       }}
     >
-      {/* Brillo lateral */}
       <div className="pointer-events-none absolute inset-y-8 left-0 w-[2px] rounded-full bg-gradient-to-b from-transparent via-white/20 to-transparent" />
 
       <div className="absolute left-1/2 top-2.5 z-30 h-6 w-[88px] -translate-x-1/2 rounded-full bg-black shadow-inner" />
 
       <div
-        className="relative overflow-hidden rounded-[2.25rem] bg-black"
+        className="relative overflow-hidden rounded-[2.25rem] bg-zinc-950 transition-[aspect-ratio] duration-300"
         style={{
-          aspectRatio: '9 / 19.5',
+          aspectRatio,
           maxHeight: '520px',
           boxShadow: 'inset 0 0 0 1px rgba(255,255,255,0.04)',
         }}

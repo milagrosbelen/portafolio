@@ -1,15 +1,30 @@
-﻿import React, { useState } from 'react'
+﻿import React, { useState, useEffect } from 'react'
 import { FaExternalLinkAlt } from 'react-icons/fa'
 import BentoCard from '../ui/BentoCard'
+import PhoneScreenshot from './PhoneScreenshot'
+import ProjectGallery from './ProjectGallery'
 
 const ProjectShowcase = ({ project }) => {
   const Mockup = project.Mockup
-  const [showGallery, setShowGallery] = useState(false)
+  const hasGallery = project.gallery?.length > 0
+
+  const [viewMode, setViewMode] = useState('screenshot')
+  const [activeIndex, setActiveIndex] = useState(0)
+
+  useEffect(() => {
+    setActiveIndex(0)
+    setViewMode(hasGallery ? 'screenshot' : 'mockup')
+  }, [project.id, hasGallery])
+
+  const showMockup = viewMode === 'mockup' && Mockup
+  const showScreenshot = hasGallery && viewMode === 'screenshot'
+  const showStaticImage = !Mockup && project.image && !hasGallery
 
   return (
     <BentoCard hover={false} className="!p-0 overflow-hidden">
-      <div className="grid lg:grid-cols-[minmax(0,300px)_1fr]">
-        <div className="relative bg-[#0c0c12] p-6 flex items-center justify-center min-h-[300px] border-b lg:border-b-0 lg:border-r border-white/[0.06]">
+      <div className="grid lg:grid-cols-[minmax(0,320px)_1fr]">
+        {/* Columna celular */}
+        <div className="relative flex flex-col items-center gap-4 p-6 bg-[#0c0c12] border-b lg:border-b-0 lg:border-r border-white/[0.06]">
           <span
             className={`absolute top-4 left-4 z-10 px-3 py-1 text-white text-[10px] font-bold rounded-full uppercase tracking-wider ${
               project.badgeColor || 'bg-primary-500/90'
@@ -22,19 +37,42 @@ const ProjectShowcase = ({ project }) => {
               {project.status}
             </span>
           )}
-          {Mockup ? (
-            <div className="origin-center" style={{ transform: 'scale(0.95)' }}>
-              <Mockup />
-            </div>
-          ) : (
-            <img
-              src={project.image}
-              alt={project.title}
-              className="w-full max-w-[240px] rounded-2xl object-cover object-top shadow-2xl"
+
+          <div className="mt-8 w-full flex justify-center">
+            {showMockup && <Mockup />}
+            {showScreenshot && (
+              <PhoneScreenshot
+                key={project.gallery[activeIndex]}
+                src={project.gallery[activeIndex]}
+                alt={`${project.title} - ${project.galleryLabels?.[activeIndex] || 'captura'}`}
+              />
+            )}
+            {showStaticImage && (
+              <img
+                src={project.image}
+                alt={project.title}
+                className="w-full max-w-[240px] rounded-2xl object-cover object-top shadow-2xl"
+              />
+            )}
+          </div>
+
+          {hasGallery && (
+            <ProjectGallery
+              images={project.gallery}
+              labels={project.galleryLabels}
+              activeIndex={activeIndex}
+              onSelect={(index) => {
+                setActiveIndex(index)
+                setViewMode('screenshot')
+              }}
+              showMockupOption={!!Mockup}
+              mockupActive={viewMode === 'mockup'}
+              onSelectMockup={() => setViewMode('mockup')}
             />
           )}
         </div>
 
+        {/* Info del proyecto */}
         <div className="p-6 md:p-8 flex flex-col gap-4">
           <div>
             <h3 className="text-2xl font-bold text-white tracking-tight">{project.title}</h3>
@@ -75,36 +113,17 @@ const ProjectShowcase = ({ project }) => {
 
           <div className="flex flex-wrap gap-3 mt-auto pt-2">
             {project.demo && project.demo !== '#' && (
-              <a href={project.demo} target="_blank" rel="noopener noreferrer" className="btn-primary !py-3 !px-6">
+              <a
+                href={project.demo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary !py-3 !px-6"
+              >
                 <FaExternalLinkAlt className="w-3.5 h-3.5" />
                 Ver demo
               </a>
             )}
           </div>
-
-          {project.gallery?.length > 0 && (
-            <>
-              <button
-                type="button"
-                onClick={() => setShowGallery((v) => !v)}
-                className="text-left text-xs font-semibold text-accent-300 uppercase tracking-wider hover:text-primary-300"
-              >
-                {showGallery ? '▾ Ocultar capturas' : `▸ Ver capturas (${project.gallery.length})`}
-              </button>
-              {showGallery && (
-                <div className="flex gap-3 overflow-x-auto pb-1">
-                  {project.gallery.map((src) => (
-                    <img
-                      key={src}
-                      src={src}
-                      alt=""
-                      className="h-28 w-16 rounded-xl object-cover object-top border border-white/10 flex-shrink-0"
-                    />
-                  ))}
-                </div>
-              )}
-            </>
-          )}
         </div>
       </div>
     </BentoCard>
